@@ -14999,7 +14999,13 @@ const Main = {
             board.pieceWidth = img.width / divide;
             board.pieceHeight = img.height / divide;
             // 縮小率
-            board.tgtPixelRate = canvas.width / img.width;
+            if (canvas.height < canvas.width) {
+                board.tgtPixelRate = canvas.height / img.height;
+            } else {
+                board.tgtPixelRate = canvas.width / img.width;
+            }
+            // ボードのX座標
+            board.originX = canvas.width / 2 - img.width * board.tgtPixelRate / 2;
             // ボードのY座標
             board.originY = canvas.height / 2 - img.height * board.tgtPixelRate / 2;
             // console.log(`drawPieces pieceWidth=${board.pieceWidth}`);
