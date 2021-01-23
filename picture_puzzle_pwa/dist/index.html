@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no">
+    <title>Picture Puzzle</title>
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <style>
+
+html, body, #main, #page1, #page2, #page3 {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(#002AFF, #00C4FF);
+    background-attachment: fixed;
+    color: white;
+    overscroll-behavior-y: none;
+}
+
+/* page1 */
+#page1container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+}
+
+#title > img {
+    width: 40%;
+}
+
+#version {
+    margin-top: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#copyright {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+/* page2 */
+
+.page2container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    /* margin-left: auto;
+    margin-right: auto; */
+}
+
+.flex {
+    display: flex;
+}
+
+#levellist {
+    height: inherit;
+    overflow-y: scroll;
+    overscroll-behavior-y: contain;
+}
+
+.levelitem {
+    /* display: inline-flex; */
+}
+
+.levelitem img {
+    width: 30%;
+}
+
+.levelitem .title {
+    /* display: inline; */
+}
+
+.buttonlist {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: large;
+}
+
+/* page3 */
+
+.page3container {
+}
+
+#canvas {
+}
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="page1" @click="movePage2()" :style="stylePage1">
+            <div id="page1container">
+                <div id="title">
+                    <img src="img/title.png">
+                    <div>
+                         <div><h1>Picture</h1></div>
+                         <div><h1>Puzzle</h1></div>
+                    </div>
+                </div>
+                <div id="version">Ver. X.X</div>
+                <div id="copyright"> (c) 2020 flat.e </div>
+            </div>
+        </div>
+        <div id="page2" :style="stylePage2">
+            <div class="page2container">
+                <div class="title">絵・レベルの選択</div>
+                <div id="levellist" >
+                    <div class="levelitem" v-for="level in levels">
+                        <!-- <div class="title">気球</div> -->
+                        <div class="title">{{ level.title }}</div>
+                        <div class="flex">
+                            <!-- <img src="img/balloon.png" alt="気球"> -->
+                            <img v-bind:src="'img/' + level.imgsrc" v-bind:alt="level.title">
+                            <div class="buttonlist">
+                                <div class="flex" v-for="divide in divides">
+                                    <button @click="startGame(level.id, divide)">{{divide}} x {{divide}}</button>
+                                    <div>{{ timeFormat(getBesttime(level, divide)) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page3" :style="stylePage3">
+            <div class="page3container">
+                <canvas id="canvas"
+                @touchstart="game" @touchmove="game" @touchend="game"
+               ></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
