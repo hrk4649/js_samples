@@ -1,0 +1,12 @@
+{
+    "lang": "ja",
+    "name": "Picture Puzzle",
+    "short_name": "Picture Puzzle",
+    "icons": [{
+          "src": "./img/picture_puzzle_icon.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }],
+    "start_url": "./index.html",
+    "display": "minimal-ui"
+  }
